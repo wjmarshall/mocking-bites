@@ -23,3 +23,6 @@ class TimeError
   end
 end
 
+time_error = TimeError.new(Net::HTTP)
+p time_error.error(Time.now)
+

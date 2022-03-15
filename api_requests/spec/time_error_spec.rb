@@ -1,8 +1,4 @@
 require 'time_error'
-require 'date'
-require 'json'
-require 'net/http'
-
 
 RSpec.describe TimeError do
   it "it returns difference for local and server time" do
