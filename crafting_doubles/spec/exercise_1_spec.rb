@@ -3,7 +3,7 @@ RSpec.describe "doubles" do
 
   it "sets up a blank double" do
     # Set up your doubles here
-    fake_object = # ...
+    fake_object = double :fake
 
     # Don't edit below
     expect(fake_object).to be
@@ -11,7 +11,12 @@ RSpec.describe "doubles" do
 
   it "sets up a double with methods" do
     # Set up your doubles here
-    fake_object = # ...
+    fake_object = double :fake_animal
+
+    expect(fake_object).to receive(:speak).and_return("Meow")
+    expect(fake_object).to receive(:count_ears).and_return(2)
+    expect(fake_object).to receive(:count_legs).and_return(4)
+    
 
     # Don't edit below
     expect(fake_object.speak).to eq "Meow"
@@ -19,9 +24,10 @@ RSpec.describe "doubles" do
     expect(fake_object.count_legs).to eq 4
   end
 
-  xit "sets up a double with methods that take arguments" do
+  it "sets up a double with methods that take arguments" do
     # Set up your doubles here
-    fake_object = # ...
+    fake_object = double :fake_animal
+    expect(fake_object).to receive(:speak).with("Jess").and_return("Meow, Jess")
 
     # Don't edit below
     expect(fake_object.speak("Jess")).to eq "Meow, Jess"
@@ -30,21 +36,22 @@ RSpec.describe "doubles" do
     expect { fake_object.speak("Ron") }.to raise_error RSpec::Mocks::MockExpectationError
   end
 
-  xit "sets up doubles that expect to be called" do
+  it "sets up doubles that expect to be called" do
     fake_object = double :animal
     # Write an expectation below that the method "speak" is called with
     # the argument "Steve"
 
-    # ...
+    expect(fake_object).to receive(:speak).with("Steve")
 
     # Don't edit below
     fake_object.speak("Steve")
   end
 
-  xit "creates a double for a specific case" do
+  it "creates a double for a specific case" do
     fake_diary = double :diary, add: nil
     # Set up this double to pass the tests below
-    # ...
+    allow(fake_diary).to receive(:add).with(double :diary_entry)
+    expect(fake_diary).to receive(:count_entries).and_return(2)
 
     # Don't edit below
     fake_diary.add(double :diary_entry)
